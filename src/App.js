@@ -1,24 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+// import components, dependencies, functions
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components/macro'
+import { Sidebar } from './molecules/Sidebar'
+import { labeledStatement } from '@babel/types';
+import { GoogleMap } from './atoms/GoogleMap'
+import { Button} from './atoms/Button'
+
+// component/file level logic
+const AppWrapper = styled.div `
+  display: flex;
+  margin: auto;
+  height: 100vh;
+  width: 100%;
+`
+const SidebarWrapper = styled.div `
+  display: flex;
+  justify-content: flex-start;
+  align-items:center;
+  width:20%;
+`
+
+const MainViewWrapper = styled.div `
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  align-items:center;
+  width: 100%;
+`
+
+const MapWrapper = styled.div `
+  display: flex;
+  justify-content: space-evenly;
+  align-items:center;
+  width: 100%;
+  height: 100vh;
+`
 
 function App() {
+  // render logic
+  const [ isMapOpen, setIsMapOpen ]= useState(true)
+  
+
+  console.log({isMapOpen})
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppWrapper>
+      <SidebarWrapper>
+        <Sidebar/>
+      </SidebarWrapper>
+      <MainViewWrapper>
+      <MapWrapper>
+            {
+              isMapOpen &&
+              <GoogleMap/>
+            }
+      </MapWrapper>
+      <Button 
+      name={isMapOpen ? 'Hide Map' : 'Show Map'}
+      value={isMapOpen}
+      setValue={setIsMapOpen}
+      />
+      </MainViewWrapper>
+    </AppWrapper>
   );
 }
 
